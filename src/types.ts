@@ -1,4 +1,4 @@
-export interface iIngData {
+export interface iResult {
   ingName: string;
   ingImage: string;
   nowIngCount: number;
@@ -15,19 +15,19 @@ export interface iDishData {
 }
 
 export interface ImageInputProps {
-  result: iIngData[];
-  setResult: (result: iIngData[]) => void;
+  result: iResult[];
+  setResult: (result: iResult[]) => void;
 }
 
 export interface GridProps {
-  result: iIngData[];
+  result: iResult[];
   isMaximumMode: boolean;
   setIsMaximumMode: (isMaximumMode: boolean) => void;
 }
 
 export interface DishOrderInputProps {
-  result: iIngData[];
-  setResult: (result: iIngData[]) => void;
+  result: iResult[];
+  setResult: (result: iResult[]) => void;
   isMaximumMode: boolean;
 }
 
@@ -52,7 +52,7 @@ export interface DishSelectProps {
     index: number,
     value: number
   ) => void;
-  result: iIngData[];
+  result: iResult[];
 }
 
 export interface DishOrderDisplayProps {
@@ -76,7 +76,7 @@ export interface DishOrderDisplayProps {
   dishOrderCurry: iDishOrder[];
   dishOrderSalad: iDishOrder[];
   dishOrderDessert: iDishOrder[];
-  result: iIngData[];
+  result: iResult[];
 }
 
 export interface iDishOrder {

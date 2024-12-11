@@ -1,10 +1,13 @@
 'use client';
-import {iDishData, DishSelectProps} from '../types';
+import { iDishData, DishSelectProps } from '../types';
 import Salad from '../db/Salad.json';
 import Curry from '../db/Curry.json';
 import Dessert from '../db/Dessert.json';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import Image from 'next/image';
+import { ThemeProvider } from '@mui/material/styles';
+import { DishOrderInputTheme } from './MUIStyledComponents';
 import {
   StyledAutocomplete,
   StyledPaper,
@@ -49,109 +52,111 @@ export default function DishSelect({
             <AddIcon />
           </button>
         </div>
-
-        <StyledAutocomplete
-          disablePortal
-          options={
-            category === 'Curry'
-              ? dishDataCurry
-              : category === 'Salad'
-                ? dishDataSalad
-                : dishDataDessert
-          }
-          getOptionLabel={(option) => option.name}
-          value={
-            (category === 'Curry'
-              ? dishDataCurry
-              : category === 'Salad'
-                ? dishDataSalad
-                : dishDataDessert
-            ).find((d) => d.name === dish.name) || null
-          }
-          filterOptions={(options, state) => {
-            const inputValue = normalizeString(state.inputValue);
-            return options.filter((option) => normalizeString(option.name).includes(inputValue));
-          }}
-          PaperComponent={(props) => <StyledPaper {...props} />}
-          ListboxComponent={StyledListbox}
-          renderInput={(params) => (
-            <StyledTextField
-              {...params}
-              variant="outlined"
-              value={dish.name}
-              onChange={(event) => handleInputChange(event, category, index)}
-            />
-          )}
-          inputValue={dish.name}
-          onChange={(event, selectedOption) => {
-            if (selectedOption) {
-              handleSelectChange(event, selectedOption.name, category, index);
+        <ThemeProvider theme={DishOrderInputTheme}>
+          <StyledAutocomplete
+            disablePortal
+            options={
+              category === 'Curry'
+                ? dishDataCurry
+                : category === 'Salad'
+                  ? dishDataSalad
+                  : dishDataDessert
             }
-          }}
-          onInputChange={(event, value) => handleSelectChange(event, value, category, index)}
-          renderOption={(props, option) => {
-            const totalIngredients = Object.values(option.ingredients).reduce((a, b) => a + b, 0);
-            const {key, ...restProps} = props; // keyを除外
-            return (
-              <li
-                key={option.name}
-                {...restProps}
-                style={{display: 'flex', flexDirection: 'column', padding: '0.6rem'}}
-              >
-                <div style={{display: 'flex', alignItems: 'center', width: '100%'}}>
-                  <span>{option.name}</span>
-                  <span
-                    style={{
-                      fontSize: '0.8em',
-                      marginLeft: 'auto',
-                      position: 'relative'
-                    }}
-                  >
-                    x{totalIngredients}, +{option.BonusAtLv1}%
+            getOptionLabel={(option) => option.name}
+            value={
+              (category === 'Curry'
+                ? dishDataCurry
+                : category === 'Salad'
+                  ? dishDataSalad
+                  : dishDataDessert
+              ).find((d) => d.name === dish.name) || null
+            }
+            filterOptions={(options, state) => {
+              const inputValue = normalizeString(state.inputValue);
+              return options.filter((option) => normalizeString(option.name).includes(inputValue));
+            }}
+            PaperComponent={(props) => <StyledPaper {...props} />}
+            ListboxComponent={StyledListbox}
+            renderInput={(params) => (
+              <StyledTextField
+                {...params}
+                variant="outlined"
+                value={dish.name}
+                onChange={(event) => handleInputChange(event, category, index)}
+              />
+            )}
+            inputValue={dish.name}
+            onChange={(event, selectedOption) => {
+              if (selectedOption) {
+                handleSelectChange(event, selectedOption.name, category, index);
+              }
+            }}
+            onInputChange={(event, value) => handleSelectChange(event, value, category, index)}
+            renderOption={(props, option) => {
+              const totalIngredients = Object.values(option.ingredients).reduce((a, b) => a + b, 0);
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              const { key, ...restProps } = props; // keyを除外するんだけど、除外されたkeyについてno-unused-varsのエラーを吐く
+              return (
+                <li
+                  key={option.name}
+                  {...restProps}
+                  style={{ display: 'flex', flexDirection: 'column', padding: '0.6rem' }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                    <span>{option.name}</span>
                     <span
                       style={{
-                        fontSize: '0.9em',
-                        position: 'absolute',
-                        top: '70%',
-                        right: '0'
+                        fontSize: '0.8em',
+                        marginLeft: 'auto',
+                        position: 'relative'
                       }}
                     >
-                      (Lv.1)
+                      x{totalIngredients}, +{option.BonusAtLv1}%
+                      <span
+                        style={{
+                          fontSize: '0.9em',
+                          position: 'absolute',
+                          top: '70%',
+                          right: '0'
+                        }}
+                      >
+                        (Lv.1)
+                      </span>
                     </span>
-                  </span>
-                </div>
-                <div style={{display: 'flex', flexWrap: 'wrap', width: '100%'}}>
-                  {Object.keys(
-                    (category === 'Curry'
-                      ? dishDataCurry
-                      : category === 'Salad'
-                        ? dishDataSalad
-                        : dishDataDessert
-                    ).find((d) => d.name === option.name)?.ingredients || {}
-                  ).map((ingredient) => {
-                    const resultItem = result.find((item) => item.ingName === ingredient);
-                    return resultItem ? (
-                      <div key={ingredient} style={{display: 'flex', alignItems: 'center'}}>
-                        <img src={resultItem.ingImage} alt={ingredient} className="w-6 h-6" />
-                        <span className="mr-2 text-[#653618] text-xs w-5">
-                          x
-                          {
-                            (category === 'Curry'
-                              ? dishDataCurry
-                              : category === 'Salad'
-                                ? dishDataSalad
-                                : dishDataDessert
-                            ).find((d) => d.name === option.name)?.ingredients[ingredient]
-                          }
-                        </span>
-                      </div>
-                    ) : null;
-                  })}
-                </div>
-              </li>
-            );
-          }}
-        />
+                  </div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
+                    {Object.keys(
+                      (category === 'Curry'
+                        ? dishDataCurry
+                        : category === 'Salad'
+                          ? dishDataSalad
+                          : dishDataDessert
+                      ).find((d) => d.name === option.name)?.ingredients || {}
+                    ).map((ingredient) => {
+                      const resultItem = result.find((item) => item.ingName === ingredient);
+                      return resultItem ? (
+                        <div key={ingredient} style={{ display: 'flex', alignItems: 'center' }}>
+                          <Image src={resultItem.ingImage} alt={ingredient} width={24} height={24} />
+                          <span className="mr-2 text-[#653618] text-xs w-5">
+                            x
+                            {
+                              (category === 'Curry'
+                                ? dishDataCurry
+                                : category === 'Salad'
+                                  ? dishDataSalad
+                                  : dishDataDessert
+                              ).find((d) => d.name === option.name)?.ingredients[ingredient]
+                            }
+                          </span>
+                        </div>
+                      ) : null;
+                    })}
+                  </div>
+                </li>
+              );
+            }}
+          />
+        </ThemeProvider>
       </div>
       <div className="flex items-center justify-end">
         {Object.keys(
@@ -165,7 +170,7 @@ export default function DishSelect({
           const resultItem = result.find((item) => item.ingName === ingredient);
           return resultItem ? (
             <div key={ingredient} className="flex items-center">
-              <img src={resultItem.ingImage} alt={ingredient} className="w-8 h-8" />
+              <Image src={resultItem.ingImage} alt={ingredient} width={32} height={32} />
               <span className="mr-2 text-[#653618] text-xs w-5">
                 x
                 {

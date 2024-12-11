@@ -9,9 +9,6 @@ export default function ImageInput({result, setResult}: ImageInputProps) {
   const [image, setImage] = useState<File[]>([]);
   const [imageName, setImageName] = useState<string[]>([]);
   const [imageSize, setImageSize] = useState<string[]>(['0', '0']);
-  const [ocrResult, setOcrResult] = useState<number[]>([
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-  ]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +45,6 @@ export default function ImageInput({result, setResult}: ImageInputProps) {
           throw new Error(errorData.error || 'Unknown error');
         }
         const data: number[] = await response.json();
-        setOcrResult(data);
         for (let i = 0; i < data.length; i++) {
           updatedResult[i].nowIngCount = data[i];
           updatedResult[i].diffIngCount =

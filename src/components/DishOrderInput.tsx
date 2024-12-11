@@ -1,6 +1,6 @@
 'use client';
-import React, {useState, useEffect, useRef} from 'react';
-import {iDishData, DishOrderInputProps, iDishOrder} from '../types';
+import React, {useState, useEffect, useRef, useCallback} from 'react';
+import {iDishData, DishOrderInputProps, iDishOrder, iResult} from '../types';
 import Salad from '../db/Salad.json';
 import Curry from '../db/Curry.json';
 import Dessert from '../db/Dessert.json';
@@ -120,6 +120,10 @@ export default function DishOrderInput({result, setResult, isMaximumMode}: DishO
     }
   };
 
+  const memoizedSetResult = useCallback((newResult: iResult[]) => {
+    setResult(newResult);
+  }, [setResult]);
+
   useEffect(() => {
     if (dishOrderCurry.length === 0 && dishOrderSalad.length === 0 && dishOrderDessert.length === 0)
       return; // すべてのdishOrderが空の場合は何もしない
@@ -176,9 +180,9 @@ export default function DishOrderInput({result, setResult, isMaximumMode}: DishO
     });
     // resultが変更された場合のみsetResultを呼び出す
     if (JSON.stringify(updatedResult) !== JSON.stringify(result)) {
-      setResult(updatedResult);
+      memoizedSetResult(updatedResult);
     }
-  }, [dishOrderCurry, dishOrderSalad, dishOrderDessert, result, isMaximumMode]);
+  }, [dishOrderCurry, dishOrderSalad, dishOrderDessert, result, isMaximumMode, memoizedSetResult]);
 
   return (
     <div className="DishOrderInput mt-6 mb-10 mx-auto">

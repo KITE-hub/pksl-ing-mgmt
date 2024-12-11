@@ -9,13 +9,13 @@ interface State {
 }
 interface Action {
   type: string;
-  payload?: any; // 必要に応じて型を厳密に指定
+  payload?: { index: number };
 }
 const initialState: State = {tabIndex: 0}; // 初期状態を定義
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'changeUpperTab':
-      return {...state, tabIndex: action.payload.index};
+      return {...state, tabIndex: action.payload?.index ?? state.tabIndex};
     default:
       return state;
   }

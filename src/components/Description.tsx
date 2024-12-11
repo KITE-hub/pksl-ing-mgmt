@@ -1,5 +1,6 @@
 'use client';
 import React, {useState} from 'react';
+import Image from 'next/image';
 import {ThemeProvider} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import {
@@ -106,23 +107,23 @@ export default function Description() {
                 (現在) は一部更新されない点にご注意ください。以下に例を示します。
               </div>
               <br />
-              <img src="/DescriptionImages/OK1.jpg" alt="OK1" width="50%" className="mx-auto" />
+              <Image src="/DescriptionImages/OK1.jpg" alt="OK1" width={750} height={1294} className="mx-auto w-1/2" />
               <div className="text-center">
                 図1. 読み取り成功例 <small>(画像中の全ての食材が認識される)</small>
               </div>
               <br />
-              <img src="/DescriptionImages/NG1.jpg" alt="NG1" width="50%" className="mx-auto" />
+              <Image src="/DescriptionImages/NG1.jpg" alt="NG1" width={750} height={340} className="mx-auto w-1/2" />
               <div className="text-center">
                 図2. 読み取り失敗例1 <small>(最下段の食材名が途切れているため認識されない)</small>
               </div>
               <br />
-              <img src="/DescriptionImages/NG2.jpg" alt="NG2" width="50%" className="mx-auto" />
+              <Image src="/DescriptionImages/NG2.jpg" alt="NG2" width={750} height={337} className="mx-auto w-1/2" />
               <div className="text-center">
                 図3. 読み取り失敗例2{' '}
                 <small>(最下段の食材数に対応する食材名が画像中に存在しないため認識されない)</small>
               </div>
               <br />
-              <img src="/DescriptionImages/NG3.jpg" alt="NG3" width="50%" className="mx-auto" />
+              <Image src="/DescriptionImages/NG3.jpg" alt="NG3" width={750} height={581} className="mx-auto w-1/2" />
               <div className="text-center">
                 図4. 読み取り失敗例3 <small>(最上段の食材数が不鮮明なため認識されない)</small>
               </div>

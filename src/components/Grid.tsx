@@ -3,7 +3,7 @@ import React from 'react';
 import {DataGrid, GridRowsProp, GridColDef} from '@mui/x-data-grid';
 import {GridProps} from '../types';
 import SwitchComponent from './Switch';
-
+import Image from 'next/image';
 export default function Grid({result, setIsMaximumMode, isMaximumMode}: GridProps) {
   const rows: GridRowsProp = result.map((item, index) => ({
     id: index,
@@ -28,12 +28,12 @@ export default function Grid({result, setIsMaximumMode, isMaximumMode}: GridProp
             {isTotalRow ? (
               <div />
             ) : (
-              <img
+              <Image
                 src={params.row.ingImage}
                 alt=""
+                width={35}
+                height={35}
                 style={{
-                  width: '35px',
-                  height: '35px',
                   objectFit: 'cover',
                   marginLeft: '-5px',
                   borderRadius: '4px'

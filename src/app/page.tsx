@@ -5,10 +5,10 @@ import ImageInput from '../components/ImageInput';
 import DishOrderInput from '../components/DishOrderInput';
 import Grid from '../components/Grid';
 import ResultInitialState from '../db/ResultInitialState.json';
-import {iIngData} from '../types';
+import {iResult} from '../types';
 
 export default function Home() {
-  const [result, setResult] = useState<iIngData[]>(ResultInitialState);
+  const [result, setResult] = useState<iResult[]>(ResultInitialState);
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const storedResult = localStorage.getItem('result');

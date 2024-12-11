@@ -78,7 +78,7 @@ export const StyledTextField = styled(TextField)({
   }
 });
 
-export const StyledPaper = styled(Paper)(({theme}) => ({
+export const StyledPaper = styled(Paper)(() => ({ // 元々は{theme}が引数
   backgroundColor: 'white',
   borderRadius: '8px',
   boxShadow: 'none',
@@ -86,7 +86,7 @@ export const StyledPaper = styled(Paper)(({theme}) => ({
   border: '1px solid #25d76b'
 }));
 
-export const StyledListbox = styled('ul')(({theme}) => ({
+export const StyledListbox = styled('ul')(() => ({ // 元々は{theme}が引数
   fontSize: '13px',
   padding: 0
 }));
