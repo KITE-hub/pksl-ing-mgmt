@@ -3,6 +3,7 @@ import {M_PLUS_1p} from 'next/font/google';
 import './globals.css';
 
 const mainFont = M_PLUS_1p({
+  subsets: ['latin'],
   weight: ['400', '700'] // フォントの太さを指定
 });
 
@@ -23,4 +24,3 @@ export default function RootLayout({
     </html>
   );
 }
-// className={`${geistSans.variable} ${geistMono.variable} antialiased`}
