@@ -6,14 +6,14 @@
       "use": "@vercel/next"
     },
     {
-      "src": "backend/app.py",
+      "src": "backend/ocr.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/ocr",
-      "dest": "backend/app.py"
+      "dest": "backend/ocr.py"
     },
     {
       "src": "/(.*)",
