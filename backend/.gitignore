@@ -1,0 +1,11 @@
+# .gitignore
+# Google Cloud 認証ファイルを無視する
+credentials.json
+
+# 開発用環境変数ファイルを無視する
+.env
+
+# Python キャッシュファイルを無視する
+__pycache__/
+*.pyc
+*.pyo

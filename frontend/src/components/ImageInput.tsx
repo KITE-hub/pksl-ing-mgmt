@@ -1,11 +1,11 @@
 'use client';
 import React from 'react';
-import {useState} from 'react';
-import {ImageInputProps} from '../types';
+import { useState } from 'react';
+import { ImageInputProps } from '../types';
 import AddIcon from '@mui/icons-material/Add';
 import ImageIcon from '@mui/icons-material/Image';
 
-export default function ImageInput({result, setResult}: ImageInputProps) {
+export default function ImageInput({ result, setResult }: ImageInputProps) {
   const [image, setImage] = useState<File[]>([]);
   const [imageName, setImageName] = useState<string[]>([]);
   const [imageSize, setImageSize] = useState<string[]>(['0', '0']);
@@ -21,7 +21,7 @@ export default function ImageInput({result, setResult}: ImageInputProps) {
       setImageSize(sizes);
     }
   };
-
+  console.log("API URL:", process.env.NEXT_PUBLIC_FLASK_API);
   const handleOCR = async () => {
     if (image.length > 0) {
       setIsLoading(true);
@@ -63,7 +63,9 @@ export default function ImageInput({result, setResult}: ImageInputProps) {
     <div className="ImageInput mt-6 mb-10 mx-auto">
       <div className="flex mb-3">
         <span className="bg-[#25d76b] w-1.5 mr-1.5"></span>
-        <h3 className="font-bold text-white bg-[#25d76b] px-2 clipSlant flex-grow">画像認識</h3>
+        <div className="flex justify-between text-white bg-[#25d76b] px-2 w-full clipSlant">
+          <h3 className="font-bold">画像認識</h3>
+        </div>
       </div>
       <div className="responsiveFlexImageInput">
         {imageName.length > 0 ? (
