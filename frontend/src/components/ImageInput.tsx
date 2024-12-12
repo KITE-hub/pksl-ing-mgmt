@@ -1,11 +1,11 @@
 'use client';
 import React from 'react';
-import { useState } from 'react';
-import { ImageInputProps } from '../types';
+import {useState} from 'react';
+import {ImageInputProps} from '../types';
 import AddIcon from '@mui/icons-material/Add';
 import ImageIcon from '@mui/icons-material/Image';
 
-export default function ImageInput({ result, setResult }: ImageInputProps) {
+export default function ImageInput({result, setResult}: ImageInputProps) {
   const [image, setImage] = useState<File[]>([]);
   const [imageName, setImageName] = useState<string[]>([]);
   const [imageSize, setImageSize] = useState<string[]>(['0', '0']);
@@ -21,7 +21,7 @@ export default function ImageInput({ result, setResult }: ImageInputProps) {
       setImageSize(sizes);
     }
   };
-  console.log("API URL:", process.env.NEXT_PUBLIC_FLASK_API);
+  console.log('API URL:', process.env.NEXT_PUBLIC_FLASK_API);
   const handleOCR = async () => {
     if (image.length > 0) {
       setIsLoading(true);
