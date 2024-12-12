@@ -29,15 +29,16 @@ FREE_TIER_LIMIT = 1000  # 無料枠（1000リクエスト/月）
 LAST_RESET_MONTH = datetime.now().month  # 初期化時の月
 
 def reset_request_count_if_needed():
-    """月が変わった場合にAPI_REQUEST_COUNTをリセットする関数"""
-    global API_REQUEST_COUNT, LAST_RESET_MONTH
-    current_month = datetime.now().month
-    if current_month != LAST_RESET_MONTH:
-        API_REQUEST_COUNT = 0
-        LAST_RESET_MONTH = current_month
+  """月が変わった場合にAPI_REQUEST_COUNTをリセットする関数"""
+  global API_REQUEST_COUNT, LAST_RESET_MONTH
+  current_month = datetime.now().month
+  if current_month != LAST_RESET_MONTH:
+    API_REQUEST_COUNT = 0
+    LAST_RESET_MONTH = current_month
 
 @app.route("/ocr", methods=['POST'])
 def ocr():
+  reset_request_count_if_needed()
   global API_REQUEST_COUNT
 
   if API_REQUEST_COUNT >= FREE_TIER_LIMIT:
