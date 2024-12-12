@@ -2,8 +2,6 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from google.cloud import vision
 from google.oauth2 import service_account
-import cv2
-import numpy as np
 import os
 from datetime import datetime
 import json
@@ -49,22 +47,14 @@ def ocr():
   ingData = ingDataInitial.copy()
 
   for file in files:
-    image = cv2.imdecode(np.frombuffer(file.read(), np.uint8), cv2.IMREAD_COLOR)
-    height, width, _ = image.shape
-    bottom_start = int(height * 0.05)
-    cropped_image = image[bottom_start:, :]
-    temp_file_name = f'croppedImg_{file.filename}'
-    cv2.imwrite(temp_file_name, cropped_image)
-    # 画像をGoogle Vision API形式に変換
-    with open(temp_file_name, 'rb') as image_file:
-        content = image_file.read()
+    # 画像を直接Google Vision API形式に変換
+    content = file.read()  # ファイルを直接読み込む
     image_vision = vision.Image(content=content)
     # OCR実行
     response = client.text_detection(image=image_vision)
     detections = response.text_annotations
 
     API_REQUEST_COUNT += 1
-    os.remove(temp_file_name)
 
     if detections:
       text_annotations = detections[1:]
