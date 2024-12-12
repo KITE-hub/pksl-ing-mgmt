@@ -120,9 +120,12 @@ export default function DishOrderInput({result, setResult, isMaximumMode}: DishO
     }
   };
 
-  const memoizedSetResult = useCallback((newResult: iResult[]) => {
-    setResult(newResult);
-  }, [setResult]);
+  const memoizedSetResult = useCallback(
+    (newResult: iResult[]) => {
+      setResult(newResult);
+    },
+    [setResult]
+  );
 
   useEffect(() => {
     if (dishOrderCurry.length === 0 && dishOrderSalad.length === 0 && dishOrderDessert.length === 0)

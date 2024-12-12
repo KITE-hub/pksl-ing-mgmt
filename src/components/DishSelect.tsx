@@ -1,13 +1,13 @@
 'use client';
-import { iDishData, DishSelectProps } from '../types';
+import {iDishData, DishSelectProps} from '../types';
 import Salad from '../db/Salad.json';
 import Curry from '../db/Curry.json';
 import Dessert from '../db/Dessert.json';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import Image from 'next/image';
-import { ThemeProvider } from '@mui/material/styles';
-import { DishOrderInputTheme } from './MUIStyledComponents';
+import {ThemeProvider} from '@mui/material/styles';
+import {DishOrderInputTheme} from './MUIStyledComponents';
 import {
   StyledAutocomplete,
   StyledPaper,
@@ -95,14 +95,14 @@ export default function DishSelect({
             renderOption={(props, option) => {
               const totalIngredients = Object.values(option.ingredients).reduce((a, b) => a + b, 0);
               // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              const { key, ...restProps } = props; // keyを除外するんだけど、除外されたkeyについてno-unused-varsのエラーを吐く
+              const {key, ...restProps} = props; // keyを除外するんだけど、除外されたkeyについてno-unused-varsのエラーを吐く
               return (
                 <li
                   key={option.name}
                   {...restProps}
-                  style={{ display: 'flex', flexDirection: 'column', padding: '0.6rem' }}
+                  style={{display: 'flex', flexDirection: 'column', padding: '0.6rem'}}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                  <div style={{display: 'flex', alignItems: 'center', width: '100%'}}>
                     <span>{option.name}</span>
                     <span
                       style={{
@@ -124,7 +124,7 @@ export default function DishSelect({
                       </span>
                     </span>
                   </div>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
+                  <div style={{display: 'flex', flexWrap: 'wrap', width: '100%'}}>
                     {Object.keys(
                       (category === 'Curry'
                         ? dishDataCurry
@@ -135,8 +135,13 @@ export default function DishSelect({
                     ).map((ingredient) => {
                       const resultItem = result.find((item) => item.ingName === ingredient);
                       return resultItem ? (
-                        <div key={ingredient} style={{ display: 'flex', alignItems: 'center' }}>
-                          <Image src={resultItem.ingImage} alt={ingredient} width={24} height={24} />
+                        <div key={ingredient} style={{display: 'flex', alignItems: 'center'}}>
+                          <Image
+                            src={resultItem.ingImage}
+                            alt={ingredient}
+                            width={24}
+                            height={24}
+                          />
                           <span className="mr-2 text-[#653618] text-xs w-5">
                             x
                             {

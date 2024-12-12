@@ -9,7 +9,7 @@ interface State {
 }
 interface Action {
   type: string;
-  payload?: { index: number };
+  payload?: {index: number};
 }
 const initialState: State = {tabIndex: 0}; // 初期状態を定義
 const reducer = (state: State, action: Action): State => {

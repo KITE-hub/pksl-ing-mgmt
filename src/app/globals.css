@@ -6,29 +6,30 @@
 :root {
   --background: #f1f5f9;
   --foreground: #333;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  /* --bg-input: #ffffff; */
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --bg-input: #333;
   }
-}
+} */
 
 html {
   font-size: 16px;
 }
 
 body {
-  color: var(--foreground);
+  color: var(--foreground) !important;
   background: var(--background) !important;
   font-family: 'M PLUS 1p', 'Roboto', 'Arial', 'Helvetica', 'sans-serif';
   font-size: 1rem;
   line-height: 1.5;
+  /* transition:
+    background 0.3s ease,
+    color 0.3s ease; */
 }
 
 @media screen and (max-width: 1600px) {
